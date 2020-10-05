@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         DB::table('users')->insert([
-            'title' => Str::random(10),
-            'description' => Str::random(1000),
-            'content' => Str::random(10),
-            'image' => Str::random(10).'.jpg',
+            'title' => Str::random(4),
+            'description' => Str::random(4),
+            'content' => Str::random(4),
+            'image' => Str::random(4).'.jpg',
         ]);
     }
 }
