@@ -8,7 +8,7 @@
              Category
         </div>
         <div class="catd-body">
-            <table class="table mb-0">
+            <table class="table table-hover mb-0">
                 <thead>
                     <th>Name</th>
                 </thead>
