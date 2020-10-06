@@ -8,7 +8,7 @@
         <form action="{{route('categories.store')}}" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="">Name</label>
+                    <label for="">Name ddd</label>
                     <input type="text" name="name" value="" class="form-control">
                 </div>
                 <div class="form-group">
