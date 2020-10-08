@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Post;
 
 class PostController extends Controller
@@ -36,7 +37,7 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $image = $request->image->store('posts');
+        $image = $request->image->store('post');
         post::create([
             'title'=>$request->title,
             'description'=>$request->description,
@@ -56,7 +57,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -65,9 +66,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.create')->with('post',$post);
     }
 
     /**
@@ -77,9 +78,18 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request,Post $post)
     {
-        //
+       $data = $request->only(['title','description','content']);
+
+       if($request->hasFile('image')){
+           $image = $request->image->store('post');
+           $post->deleteImage();
+           $data['image'] = $image;
+       }
+       $post->update($data);
+       session()->flash('success','updata successfully');
+        return redirect(route('posts.index'));
     }
 
     /**
@@ -90,7 +100,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete(); //ลบข้อมูลในฐานข้อมูล กหกดหฟกดฟก
+        $post->delete(); //ลบข้อมูลในฐานข้อมูล
         $post->deleteImage();
         session()->flash('success','Delete successfully');
         return redirect(route('posts.index'));

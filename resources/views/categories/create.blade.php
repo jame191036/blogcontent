@@ -12,9 +12,6 @@
         @endif
         <div class="card-header">
            {{isset($category) ? "Edit Category" : "Create Category"}}
-               
-         
-           
         </div>
         <div class="card-body">
             <form action="{{isset($category) ? route('categories.update',$category->id) : route('categories.store')}}" method="post">
