@@ -90,7 +90,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete(); //ลบข้อมูลในฐานข้อมูล
+        $post->delete(); //ลบข้อมูลในฐานข้อมูล กหกดหฟกดฟก
         $post->deleteImage();
         session()->flash('success','Delete successfully');
         return redirect(route('posts.index'));
