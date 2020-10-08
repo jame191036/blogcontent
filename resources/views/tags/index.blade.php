@@ -1,32 +1,32 @@
 @extends('layouts.app')
 @section('content')
     <div class="d-flex justify-content-end mb-2">
-        <a href="{{ route('categories.create') }}" class="btn btn-success">Add Category</a>
+        <a href="{{ route('tags.create') }}" class="btn btn-success">Add Tag</a>
     </div>
     <div class="card card-default">
         <div class="card-header">
-            Category
+            Tags
         </div>
         <div class="catd-body">
-            @if ($categoies->count() > 0)
+            @if ($tags->count() > 0)
                 <table class="table table-hover mb-0">
                     <thead>
                         <th>Name</th>
-                        <th>Post Counts</th>
+
                         <th></th>
                         <th></th>
                     </thead>
                     <tbody>
-                        @foreach ($categoies as $category)
+                        @foreach ($tags as $tag)
                             <tr>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->posts->count() }}</td>
+                                <td>{{ $tag->name }}</td>
+        
                                 <td>
-                                    <a href="{{ route('categories.edit', $category->id) }}"
+                                    <a href="{{ route('tags.edit', $tag->id) }}"
                                         class="btn btn-info btn-sm">Edit</a>
                                 </td>
                                 <td>
-                                    <form class="delete_form" action="{{ route('categories.destroy', $category->id) }}"
+                                    <form class="delete_form" action="{{ route('tags.destroy', $tag->id) }}"
                                         method="post">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE">
@@ -38,7 +38,7 @@
                     </tbody>
                 </table>
             @else
-                <h3 class="text text-center pt-2"> No Category</h3>
+                <h3 class="text text-center pt-2"> No Tag</h3>
             @endif
 
         </div>

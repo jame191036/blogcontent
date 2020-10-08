@@ -18,8 +18,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::resource('categories','CategoryController');
-Route::resource('posts','PostController');
+Route::middleware(['auth'])->group(function(){
+    Route::resource('categories','CategoryController');
+    Route::resource('posts','PostController');
+    Route::resource('tags','TagsController');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();

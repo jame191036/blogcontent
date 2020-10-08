@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Post;
+use App\Category;
+use App\Http\Middleware\VerifyCategory;
 
 class PostController extends Controller
 {
@@ -14,6 +16,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('verifyCategory')->only(['create','store']);
+    }
+
     public function index()
     {
         return view('posts.index')->with('posts',Post::all());
@@ -26,7 +34,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+
+        return view('posts.create')->with('categorie',Category::all());
     }
 
     /**
@@ -42,7 +51,8 @@ class PostController extends Controller
             'title'=>$request->title,
             'description'=>$request->description,
             'content'=>$request->content,
-            'image'=>$image
+            'image'=>$image,
+            'category_id'=>$request->category
 
         ]);
         session()->flash('success','Successfully saved');
@@ -68,7 +78,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post',$post);
+        return view('posts.create')
+        ->with('post',$post)
+        ->with('categorie',Category::all());
     }
 
     /**
@@ -80,7 +92,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request,Post $post)
     {
-       $data = $request->only(['title','description','content']);
+       $data = $request->only(['title','description','content','category']);
 
        if($request->hasFile('image')){
            $image = $request->image->store('post');

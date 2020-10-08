@@ -8,40 +8,43 @@
             post
         </div>
         <div class="catd-body">
-            @if ($posts->count()>0)
-            <table class="table table-hover mb-0">
-                <thead>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th></th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    @foreach ($posts as $post)
-                        <tr>
-                            <td>
-                            <img src="storage/{{$post->image}}" alt="" width="80px" height="80px">
-                            </td>
-                            <td>{{$post->title}}</td>
-                            <td>
-                                <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info btn-sm">Edit vbvb</a>
-                            </td>
-                            <td>
-                                <form class="delete_form" action="{{route('posts.destroy', $post->id)}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="submit" name="" value="Delete" class="btn btn-danger btn-sm">
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+            @if ($posts->count() > 0)
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($posts as $post)
+                            <tr>
+                                <td>
+                                    <img src="storage/{{ $post->image }}" alt="" width="80px" height="80px">
+                                </td>
+                                <td>{{ $post->title }}</td>
+                                <td>{{ $post->category->name }}</td>
+                                <td>
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                </td>
+                                <td>
+                                    <form class="delete_form" action="{{ route('posts.destroy', $post->id) }}"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="submit" name="" value="Delete" class="btn btn-danger btn-sm">
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
 
-            </table>
+                </table>
             @else
                 <h3 class="text text-center pt-2"> No Post</h3>
             @endif
-            
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
