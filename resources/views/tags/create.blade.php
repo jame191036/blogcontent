@@ -14,9 +14,9 @@
            {{isset($tag) ? "Edit Tag" : "Create Tag"}}
         </div>
         <div class="card-body">
-            <form action="{{isset($category) ? route('tags.update',$tag->id) : route('tags.store')}}" method="post">
+            <form action="{{isset($tag) ? route('tags.update',$tag->id) : route('tags.store')}}" method="post">
                 @csrf
-                @if (isset($category))
+                @if (isset($tag))
                     @method('put')
                 @endif
                 <div class="form-group">
@@ -24,7 +24,7 @@
                     <input type="text" name="name" value="{{isset($tag) ? $tag->name : ''}}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="submit" name="" value="{{isset($category) ? "Update Tag" : "Add Tag"}}" class="btn btn-success">
+                    <input type="submit" name="" value="{{isset($tag) ? "Update Tag" : "Add Tag"}}" class="btn btn-success">
                 </div>
             </form>
         </div>
