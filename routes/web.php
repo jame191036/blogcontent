@@ -24,6 +24,10 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('tags','TagsController');
 });
 
+Route::middleware(['auth','admin'])->group(function(){
+    Route::get('users','Usercontroller@index')->name('user.index');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();

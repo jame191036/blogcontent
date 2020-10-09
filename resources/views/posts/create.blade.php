@@ -59,7 +59,7 @@
                 @if ($tags->count()>0)
                 <div class="form-group">
                     <label for="title">tag</label>
-                    <select name="tags[]" id="" class="form-control" multiple>
+                    <select name="tags[]" class="form-control" id="selete-tags" multiple>
                         @foreach ($tags as $tag)
                             <option value="{{ $tag->id }}"
                                 @if (isset($post))
@@ -84,6 +84,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css">
     <script>
+        $(document).ready(function(){
+            $('#selete-tags').select2();
+        });
         // $('#summernote').summernote({
         //   placeholder: 'Hello stand alone ui',
         //   tabsize: 2,

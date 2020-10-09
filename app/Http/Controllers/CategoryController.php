@@ -93,6 +93,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->posts->count()>0) {
+            session()->flash('error','Cannot delete this category because it has an active article.');
+            return redirect()->back();
+        }
         $category->delete();
         session()->flash('success','Deleted successfully');
         return redirect(route('categories.index'));
