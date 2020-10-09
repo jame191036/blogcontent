@@ -7,6 +7,7 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Post;
 use App\Category;
+use App\Tag;
 use App\Http\Middleware\VerifyCategory;
 
 class PostController extends Controller
@@ -35,7 +36,9 @@ class PostController extends Controller
     public function create()
     {
 
-        return view('posts.create')->with('categorie',Category::all());
+        return view('posts.create')
+        ->with('categorie',Category::all())
+        ->with('tags',tag::all());
     }
 
     /**
@@ -46,8 +49,9 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
+        // dd($request->all());
         $image = $request->image->store('post');
-        post::create([
+        $post = post::create([
             'title'=>$request->title,
             'description'=>$request->description,
             'content'=>$request->content,
@@ -55,6 +59,10 @@ class PostController extends Controller
             'category_id'=>$request->category
 
         ]);
+
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
         session()->flash('success','Successfully saved');
         return redirect(route('posts.index'));
     }
@@ -80,7 +88,8 @@ class PostController extends Controller
     {
         return view('posts.create')
         ->with('post',$post)
-        ->with('categorie',Category::all());
+        ->with('categorie',Category::all())
+        ->with('tags',tag::all());
     }
 
     /**
@@ -98,6 +107,13 @@ class PostController extends Controller
            $image = $request->image->store('post');
            $post->deleteImage();
            $data['image'] = $image;
+       }
+       if ($request->category) {
+           $data['category_id'] = $request->category;
+       }
+
+       if ($request->tags) {
+           $post->tags()->sync($request->tags);
        }
        $post->update($data);
        session()->flash('success','updata successfully');
