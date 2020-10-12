@@ -56,7 +56,9 @@ class PostController extends Controller
             'description'=>$request->description,
             'content'=>$request->content,
             'image'=>$image,
-            'category_id'=>$request->category
+            'category_id'=>$request->category,
+            'user_id'=>auth()->user()->id
+
 
         ]);
 
@@ -129,6 +131,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete(); //ลบข้อมูลในฐานข้อมูล
+        $post->tags()->detach($post->post_id);
         $post->deleteImage();
         session()->flash('success','Delete successfully');
         return redirect(route('posts.index'));

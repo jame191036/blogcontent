@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Blog\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','WelcomeController@index');
+Route::get('blog/posts/{post}',[Postcontroller::class,'show'])->name('blog.show');
 
 Auth::routes();
 Route::middleware(['auth'])->group(function(){
@@ -26,6 +25,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth','admin'])->group(function(){
     Route::get('users','Usercontroller@index')->name('user.index');
+    Route::post('users/{user}/makeadmin','Usercontroller@makeadmin')->name('user.makeadmin');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
