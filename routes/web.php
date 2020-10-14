@@ -13,7 +13,7 @@ use App\Http\Controllers\Blog\PostController;
 |
 */
 
-Route::get('/','WelcomeController@index');
+Route::get('/','WelcomeController@index')->name('welcome');
 Route::get('blog/posts/{post}',[Postcontroller::class,'show'])->name('blog.show');
 
 Auth::routes();
