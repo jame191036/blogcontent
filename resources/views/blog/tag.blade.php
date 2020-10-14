@@ -9,7 +9,7 @@
     <meta name="keywords" content="">
 
     @section('title')
-        CMS Tutorial
+        {{ $tag->name }}
     @endsection
 
 
@@ -26,7 +26,7 @@
 
                 <div class="row">
                     <div class="col-md-8 mx-auto">
-                        <h1>Laravel Framework Workshop</h1>
+                    <h1>tag : {{$tag->name}}</h1>
                         <p class="lead-2 opacity-90 mt-3">Kong Ruksiam Studio</p>
                     </div>
                 </div>
@@ -48,10 +48,10 @@
                                     <div class="col-md-6">
                                         <div class="card border hover-shadow-6 mb-6 d-block">
                                             <a href="{{ route('blog.show', $post->id) }}"><img class="card-img-top"
-                                                    src="storage/{{ $post->image }}" alt="Card image cap"></a>
+                                                    src="../../storage/{{ $post->image }}" alt="Card image cap"></a>
                                             <div class="p-6 text-center">
                                                 <p><a class="small-5 text-lighter text-uppercase ls-2 fw-400"
-                                                        href="{{ route('blog.category', $post->category->id) }}">{{ $post->category->name }}</a>
+                                                        href="{{ route('blog.show', $post->id) }}">{{ $post->category->name }}</a>
                                                 </p>
                                                 <h5 class="mb-0"><a class="text-dark"
                                                         href="{{ route('blog.show', $post->id) }}">{{ $post->title }}</a>
@@ -60,20 +60,20 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <p class="text-center">NO Result: <strong>{{ Request()->query('search') }}</strong></p>
-                               
-                            @endforelse
+                                    <p class="text-center">NO Tag : <strong>{{$tag->name}}</strong></p>
+
+                                @endforelse
+                            </div>
+                            <div class="text-center">
+                                {{ $posts->appends(['search' => Request()->query('search')])->links() }}
+                            </div>
                         </div>
-                        <div class="text-center">
-                            {{ $posts->appends(['search' => Request()->query('search')])->links() }}
-                        </div>
+                        @include('layouts.sidebar')
                     </div>
-                    @include('layouts.sidebar')
                 </div>
             </div>
-        </div>
-    </main>
-@endsection
+        </main>
+    @endsection
 </body>
 
 </html>
