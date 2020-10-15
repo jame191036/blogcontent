@@ -20,7 +20,7 @@
     @section('header')
 
         <!-- Header -->
-        <header class="header text-center text-white"
+        <header class="header text-center text-white site-blocks-cover inner-page overlay aos-init aos-animate site-wrap"
             style="background-image: linear-gradient(-225deg, #1b1b1b 0%, #1b1b1b 48%, #1b1b1b 100%);">
             <div class="container">
 
@@ -38,10 +38,9 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="section bg-gray">
+            <div class="pt-5 bg-gray site-wrap">
                 <div class="container">
                     <div class="row">
-
                         <div class="col-md-8 col-xl-9">
                             <div class="row gap-y">
                                 @forelse ($posts as $post)
@@ -61,19 +60,25 @@
                                     </div>
                                 @empty
                                     <p class="text-center">NO Result: <strong>{{ Request()->query('search') }}</strong></p>
-                               
-                            @endforelse
+
+                                @endforelse
+                            </div>
+                            <div class="text-center">
+                                {{ $posts->appends(['search' => Request()->query('search')])->links() }}
+                            </div>
                         </div>
-                        <div class="text-center">
-                            {{ $posts->appends(['search' => Request()->query('search')])->links() }}
-                        </div>
+                        @include('layouts.sidebar')
                     </div>
-                    @include('layouts.sidebar')
                 </div>
             </div>
-        </div>
-    </main>
-@endsection
+            <div class="container site-wrap bg-dark">
+                <div class="site-wrap">
+                    @include('layouts.footer')
+                </div>
+            </div>
+        </main>
+    @endsection
+
 </body>
 
 </html>

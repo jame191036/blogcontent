@@ -72,6 +72,11 @@
                     </div>
                 </div>
             </div>
+            <div class="container site-wrap bg-dark">
+                <div class="site-wrap">
+                    @include('layouts.footer')
+                </div>
+            </div>
         </main>
     @endsection
 </body>

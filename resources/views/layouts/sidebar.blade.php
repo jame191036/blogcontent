@@ -3,7 +3,8 @@
 
         <h6 class="sidebar-title">Search</h6>
         <form class="input-group" action="{{ route('welcome') }}" method="GET">
-        <input type="text" class="form-control" name="search" placeholder="Search" value="{{Request()->query('search')}}">
+            <input type="text" class="form-control" name="search" placeholder="Search"
+                value="{{ Request()->query('search') }}">
             <div class="input-group-addon">
                 <span class="input-group-text"><i class="ti-search"></i></span>
             </div>
@@ -12,21 +13,28 @@
         <hr>
 
         <h6 class="sidebar-title">Categories</h6>
-        <div class="row link-color-default fs-14 lh-24">
+
+
+        <div class="categories">
             @foreach ($categories as $category)
-        <div class="col-4"><a href="{{route('blog.category' , $category->id)}}">{{ $category->name }}</a></div>
+                <li><a href="{{ route('blog.category', $category->id) }}">{{ $category->name }} <span>({{ $category->posts->count() }})</span></a></li>
             @endforeach
         </div>
+
+        {{-- <div class="row link-color-default fs-14 lh-24">
+            @foreach ($categories as $category)
+                <div class="col-4"><a href="{{ route('blog.category', $category->id) }}">{{ $category->name }}</a></div>
+            @endforeach
+        </div> --}}
 
         <hr>
 
         <h6 class="sidebar-title">Tags</h6>
         <div class="gap-multiline-items-1">
             @foreach ($tags as $tag)
-                <a class="badge badge-secondary" href="{{route('blog.tag' , $tag->id)}}">{{ $tag->name }}</a>
+                <a class="badge badge-secondary" href="{{ route('blog.tag', $tag->id) }}">{{ $tag->name }}</a>
             @endforeach
         </div>
-
         <hr>
     </div>
 </div>

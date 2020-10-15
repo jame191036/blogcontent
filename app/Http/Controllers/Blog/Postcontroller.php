@@ -11,7 +11,10 @@ use App\Tag;
 class Postcontroller extends Controller
 {
     public function show(Post $post){
-        return view('blog.show')->with('post',$post);
+        return view('blog.show')
+        ->with('categories',Category::all())
+        ->with('tags',Tag::all())
+        ->with('post',$post);
     }
 
     public function category(Category $category){

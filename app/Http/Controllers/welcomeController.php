@@ -15,7 +15,7 @@ class welcomeController extends Controller
             // การค้นหา
             $posts = Post::where('title','LIKE',"%{$search}%")->paginate(1);
         }else{
-            $posts = Post::paginate(2);
+            $posts = Post::paginate(4);
         }
         return view('welcome')
         ->with('categories', Category::all())
